@@ -61,7 +61,7 @@ object SBuildingSBT {
                 //ds.repartition(1).write.mode("overwrite").parquet("/data/cntr/")
                 ds.repartition(4).write.mode("overwrite").parquet("file:///home/ec2-user/jboutput/folder"+j+"/output22/")
 
-                val reader = spark.read.parquet("file:///home/ec2-user/jboutput/folder"+j+"/output22/")
+                val reader = spark.read.parquet("file:///home/ec2-user/jboutput/folder"+j+"/output22/").cache
                 val ctrl = spark.read.parquet("file:///home/ec2-user/cntr/").cache
                 
                 val diff1 = reader.select($"digest").except(ctrl.select($"digest")).cache
